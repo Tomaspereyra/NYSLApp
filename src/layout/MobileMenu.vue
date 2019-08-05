@@ -28,15 +28,25 @@
     </base-dropdown>
 
     <li class="nav-item">
-      <a class="nav-link" href="#pablo">
-        <span class="no-icon">Log out</span>
+      <a class="nav-link" href="#">
+        <span class="no-icon" v-on:click="logOut">Log out</span>
       </a>
     </li>
   </ul>
 </template>
 <script>
   export default {
-    name: 'mobile-menu'
+    name: 'mobile-menu',
+    methods:{
+      logOut:function(){
+      firebase.auth().signOut().then(function(){
+          console.log("Sign-out successful");
+        }).catch(function(error){
+          console.log("An error happened");
+        })
+
+      }
+    }
   }
 </script>
 <style>

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 'use strict';
-var signInButton = document.getElementById('sign-in');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
@@ -26,6 +25,8 @@ import LightBootstrap from './light-bootstrap-main'
 import routes from './routes/routes'
 
 import './registerServiceWorker'
+import Chat from 'vue-beautiful-chat'
+Vue.use(Chat)
 // plugin setup
 Vue.use(VueRouter)
 Vue.use(LightBootstrap)

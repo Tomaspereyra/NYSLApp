@@ -42,7 +42,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
               <router-link tag="a" class="nav-link" to="/admin/login">
-                  <a class="nav-link" >Sign in</a>
+                  <a class="nav-link" v-if="loggedOut() === true">Sign in</a>
               </router-link></h4>
           </li>
           <base-dropdown title="Dropdown">
@@ -55,7 +55,7 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a v-on:click="logOut" v-if="loggedIn() === true" href="#" class="nav-link">
               Log out
             </a>
           </li>
@@ -65,6 +65,7 @@
   </nav>
 </template>
 <script>
+
   export default {
     computed: {
       routeName () {
@@ -92,7 +93,37 @@
       },
       hideSidebar () {
         this.$sidebar.displaySidebar(false)
+      },
+      logOut:function(){
+      firebase.auth().signOut().then(function(){
+          console.log("Sign-out successful");
+        }).catch(function(error){
+          console.log("An error happened");
+        })
+
+      },
+      loggedIn:function(){
+      let user= firebase.auth().currentUser;
+      console.log(user);
+      if(user == null){
+        return false;
       }
+      else{
+        return true; // true si esta loggeado
+      }
+    },
+    loggedOut:function(){
+    let user= firebase.auth().currentUser;
+    console.log(user);
+    if(user == null){
+      return true; // true si no esta loggeado
+    }
+    else{
+      return false;
+    }
+  }
+
+
     }
   }
 

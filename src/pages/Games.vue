@@ -36,6 +36,29 @@
 
 
       </div>
+      <div class="row" v-if="logged()=== true">
+        <div class="col">
+          <div>
+             <beautiful-chat
+               :participants="participants"
+               :titleImageUrl="titleImageUrl"
+               :onMessageWasSent="onMessageWasSent"
+               :messageList="messageList"
+               :newMessagesCount="newMessagesCount"
+               :isOpen="isChatOpen"
+               :close="closeChat"
+               :open="openChat"
+               :showEmoji="true"
+               :showFile="true"
+               :showTypingIndicator="showTypingIndicator"
+               :colors="colors"
+               :alwaysScrollToBottom="alwaysScrollToBottom"
+               :messageStyling="messageStyling"
+               @onType="handleOnType" />
+           </div>
+          </div>
+
+      </div>
 
       </div>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -49,11 +72,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 <script>
-let user = firebase.auth().currentUser;
-let email;
-if(user!= null){
-  email= user.email;
-}
+
 
 import StatsCard from 'src/components/Cards/StatsCard.vue'
 export default {
@@ -61,6 +80,15 @@ export default {
     StatsCard
   },
   methods:{
+    logged:function(){
+    let user= firebase.auth().currentUser;
+    if(user != null){
+      return true;
+      }
+    else{
+      return false;
+    }
+  }
 
   },
   data:function(){
@@ -72,8 +100,11 @@ export default {
               {mes:'October',
               partidos :[{equipo:'U1 and U4', hora:'9:30 pm',lugar:'AJ Katzenmaier',fecha:'9/01'},
                             {equipo:'U2 and U3', hora:'9:30 pm',lugar:'Greenbay',fecha:'12/01'}]}],
-          user:{correo:email}
-  };}
+              user:{correo:''} //validar cuando no esta logueado
+
+  };
+}
+
 }
 
 </script>

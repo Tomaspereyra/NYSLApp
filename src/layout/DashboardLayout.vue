@@ -15,7 +15,7 @@
         <i class="nc-icon nc-map-big"></i>
         <p>Game information</p>
       </sidebar-link>
-    <!--  <sidebar-link to="/admin/typography">-->
+    <!--  <sidebar-link to="/admin/typography">
         <sidebar-link to="/admin/login">
         <i class="nc-icon nc-chat-round"></i>
         <p>Contact</p>
@@ -39,7 +39,7 @@
           <i class="nc-icon nc-alien-33"></i>
           <p>Upgrade to PRO</p>
         </sidebar-link>
-      </template>
+      </template>-->
     </side-bar>
     <div class="main-panel">
       <top-navbar></top-navbar>
@@ -72,7 +72,8 @@
         if (this.$sidebar.showSidebar) {
           this.$sidebar.displaySidebar(false)
         }
-      }
+      },
+      
     }
   }
 

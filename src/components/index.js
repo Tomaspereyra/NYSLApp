@@ -10,7 +10,7 @@ import ChartCard from './Cards/ChartCard.vue'
 import StatsCard from './Cards/StatsCard.vue'
 
 import SidebarPlugin from './SidebarPlugin'
-import BasicVueChat from './basic-vue-chat.vue'
+
 let components = {
   BaseCheckbox,
   Radio,
@@ -21,7 +21,7 @@ let components = {
   Table,
   BaseDropdown,
   SidebarPlugin,
-  BasicVueChat
+
 }
 
 export default components
