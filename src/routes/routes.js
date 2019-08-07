@@ -17,6 +17,7 @@ import Registration from 'src/pages/Registration.vue'
 import Games from 'src/pages/Games.vue'
 import Game from 'src/pages/Game.vue'
 import Login from 'src/pages/Login.vue'
+import Admin from 'src/pages/Admin.vue'
 const routes = [
   {
     path: '/',
@@ -64,6 +65,10 @@ const routes = [
         name:'Login',
         component:Login
 
+      },{
+        path:'admin',
+        name:'Admin',
+        component:Admin
       },
       {
         path: 'user',

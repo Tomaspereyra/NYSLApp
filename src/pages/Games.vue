@@ -67,11 +67,32 @@ export default {
                 {mes:'October',
                 partidos :[{equipo:'U1 and U4', hora:'9:30 pm',lugar:'AJ Katzenmaier',fecha:'9/01'},
                               {equipo:'U2 and U3', hora:'9:30 pm',lugar:'Greenbay',fecha:'12/01'}]}],
-                user:{correo:''} //validar cuando no esta logueado
+                user:{correo:''},
+                msj:'' //validar cuando no esta logueado
     }
   },
+  methods:{
+    leer:function(){
+      let ref =  new Firebase("https://nysl2-e01e4.firebaseio.com/partidos");
+      // Retrieve new posts as they are added to our database
+      let partidos;
+      let i =0;
+      ref.on("child_added", function(snapshot, prevChildKey) {
+        var partido = snapshot.val();
 
-}
+
+        console.log("fecha " + partido.equipo1);
+      });
+
+  }
+},
+  beforeMount(){
+    this.leer()
+  }
+  }
+
+
+
 
 </script>
 
