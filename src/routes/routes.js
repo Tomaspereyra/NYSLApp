@@ -22,12 +22,12 @@ const routes = [
   {
     path: '/',
     component: DashboardLayout,
-    redirect: '/admin/home'
+    redirect: '/'
   },
   {
     path: '/admin',
     component: DashboardLayout,
-    redirect: '/',
+    redirect: '/admin/home',
     children: [
       {
         path: 'overview',
@@ -55,10 +55,6 @@ const routes = [
         path:'games',
         name:'Games',
         component: Games
-      },{
-        path:'game',
-        name:'Game',
-        component: Game
       },
       {
         path:'login',
@@ -66,6 +62,12 @@ const routes = [
         component:Login
 
       },{
+        path:'game/:id',
+        name:'Game',
+        component:Game
+
+      },
+      {
         path:'admin',
         name:'Admin',
         component:Admin

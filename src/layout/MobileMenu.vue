@@ -1,6 +1,7 @@
 <template>
   <ul class="nav nav-mobile-menu">
-    <base-dropdown>
+
+    <!--<base-dropdown>
       <template slot="title">
         <i class="fa fa-globe"></i>
         <b class="caret"></b>
@@ -25,28 +26,60 @@
       <a class="dropdown-item" href="#">Something else here</a>
       <div class="divider"></div>
       <a class="dropdown-item" href="#">Separated link</a>
-    </base-dropdown>
-
+    </base-dropdown>-->
     <li class="nav-item">
-      <a class="nav-link" href="#">
-        <span class="no-icon" v-on:click="logOut">Log out</span>
-      </a>
+        <router-link tag="a" class="nav-link" to="/admin/login">
+            <a class="nav-link" v-if="not_signed">Sign in</a>
+        </router-link></h4>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" v-if="is_signed">{{user}}</a>
+    </li>
+    <li class="nav-item">
+      <router-link :to="{ name: 'Home', params: {} }">
+        <a class="nav-link" v-on:click="logOut" v-if="is_signed" >
+            Log out
+        </a>
+      </router-link>
+
+
     </li>
   </ul>
 </template>
 <script>
   export default {
+    data(){
+      return{
+        is_signed:false,
+        not_signed:true,
+        user:""
+      }
+    },
     name: 'mobile-menu',
     methods:{
       logOut:function(){
       firebase.auth().signOut().then(function(){
-          console.log("Sign-out successful");
+          alert("Sign-out successful");
         }).catch(function(error){
-          console.log("An error happened");
+          alert("An error happened");
         })
 
       }
-    }
+    },
+    created:function(){
+        var that = this;
+        firebase.auth().onAuthStateChanged(function(user){
+          if(user == null){
+            that.is_signed = false; // true si no esta loggeado
+            that.not_signed=true;
+          }
+          else{
+            that.is_signed = true;
+            that.not_signed=false;
+            that.user=firebase.auth().currentUser.displayName;
+          }
+        });
+      }
   }
 </script>
 <style>

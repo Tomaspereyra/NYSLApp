@@ -2,7 +2,7 @@
   <div class="wrapper">
     <side-bar>
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/admin/overview">
+      <sidebar-link to="/admin/about">
         <i class="nc-icon nc-zoom-split"></i>
         <p>About NYSL</p>
       </sidebar-link>
@@ -73,7 +73,7 @@
           this.$sidebar.displaySidebar(false)
         }
       },
-      
+
     }
   }
 

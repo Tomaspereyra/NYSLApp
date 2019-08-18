@@ -27,29 +27,7 @@
         </div>
 
       </div>
-      <div class="row" v-if="logged()=== true">
-        <div class="col">
-          <div>
-             <beautiful-chat
-               :participants="participants"
-               :titleImageUrl="titleImageUrl"
-               :onMessageWasSent="onMessageWasSent"
-               :messageList="messageList"
-               :newMessagesCount="newMessagesCount"
-               :isOpen="isChatOpen"
-               :close="closeChat"
-               :open="openChat"
-               :showEmoji="true"
-               :showFile="true"
-               :showTypingIndicator="showTypingIndicator"
-               :colors="colors"
-               :alwaysScrollToBottom="alwaysScrollToBottom"
-               :messageStyling="messageStyling"
-               @onType="handleOnType" />
-           </div>
-          </div>
 
-      </div>
 
     </div>
   </div>
@@ -97,14 +75,8 @@ export default {
 
     firebase.auth().onAuthStateChanged(function(user){
       if(user) { // si el usuario entro
-        console.log(firebase.auth().currentUser);
       router.go(-1);
           }
-      else{
-        router.push('admin/login');
-
-      }
-
     })
   }
 

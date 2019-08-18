@@ -42,10 +42,10 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
               <router-link tag="a" class="nav-link" to="/admin/login">
-                  <a class="nav-link" v-if="loggedOut() === true">Sign in</a>
+                  <a class="nav-link" v-if="not_signed">Sign in</a>
               </router-link></h4>
           </li>
-          <base-dropdown title="Dropdown">
+        <!--  <base-dropdown title="Dropdown">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
             <a class="dropdown-item" href="#">Something</a>
@@ -53,11 +53,18 @@
             <a class="dropdown-item" href="#">Something</a>
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
-          </base-dropdown>
+          </base-dropdown>-->
           <li class="nav-item">
-            <a v-on:click="logOut" v-if="loggedIn() === true" href="#" class="nav-link">
-              Log out
-            </a>
+            <a class="nav-link" v-if="is_signed">{{user}}</a>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'Home', params: {} }">
+              <a v-on:click="logOut" v-if="is_signed" >
+                  Log out
+              </a>
+            </router-link>
+
+
           </li>
         </ul>
       </div>
@@ -65,6 +72,9 @@
   </nav>
 </template>
 <script>
+
+import VueRouter from 'vue-router'
+const router = new VueRouter({})
 
   export default {
     computed: {
@@ -75,7 +85,10 @@
     },
     data () {
       return {
-        activeNotifications: false
+        activeNotifications: false,
+        is_signed:false,
+        not_signed:true,
+        user:""
       }
     },
     methods: {
@@ -97,34 +110,40 @@
       logOut:function(){
       firebase.auth().signOut().then(function(){
           console.log("Sign-out successful");
+          alert("Sign-out successful");
+
         }).catch(function(error){
           console.log("An error happened");
         })
 
-      },
-      loggedIn:function(){
-      let user= firebase.auth().currentUser;
-      console.log(user);
+      }
+
+
+},
+created:function(){
+    var that = this;
+    firebase.auth().onAuthStateChanged(function(user){
       if(user == null){
-        return false;
+        that.is_signed = false; // true si no esta loggeado
+        that.not_signed=true;
       }
       else{
-        return true; // true si esta loggeado
+        that.is_signed = true;
+        that.not_signed=false;
+        that.user = firebase.auth().currentUser.displayName;
       }
-    },
-    loggedOut:function(){
+    });
+  /*
     let user= firebase.auth().currentUser;
     console.log(user);
     if(user == null){
-      return true; // true si no esta loggeado
+      that.is_signed = false; // true si no esta loggeado
     }
     else{
-      return false;
-    }
+      that.is_signed = true;
+    }*/
+
   }
-
-
-    }
   }
 
 </script>
